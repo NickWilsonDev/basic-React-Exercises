@@ -6,22 +6,34 @@ const h = React.createElement;
 //let footer = h('footer', null, 'Copyright 2020');
 
 
-let Author = (authorName) =>
-    h('h1', {className: 'header' }, `${authorName}`);
+let Author = ({author}) =>
+    h('h1', {}, `${author}`);
 
-let Content = (content) =>
+let Content = ({content}) =>
     h('p', {}, `${content}`);
 
+let Image = ({path}) =>
+    h('img',{src:path, height:'100px', width:'100px'});
 
-let BlogPost = (author, content) =>
-    h('div', {}, [Author(author), Content(content)]);
+
+let BlogPost = ({author, content, path}) =>
+    //h('div', {}, [Author(author), Content(content)]);
+    h('div', {}, [
+        h(Author, {author}),
+        h(Image, {path}),
+        h(Content, {content})
+    ]);
 
 let list = h('div', null, [
-    BlogPost('Nick', 'post1'),
-    BlogPost('Ashley', 'post2'),
-    BlogPost('Nick','post3'),
-    BlogPost('Ashley','post4')
-
+    h(Author, {author:'Bob'}),
+    h(BlogPost, {author:'nick', content:'blabla', path:'./Nic1.jpg'}),
+    h(BlogPost, {author:'nick', content:'blablai2'}),
+    h(BlogPost, {author:'Nick', content:'post1'}),
+    h(BlogPost, {author:'Ashley', content:'post2'}),
+    //BlogPost('Nick','post3'),
+    //BlogPost('Ashley','post4')
 ]);
+
+//console.log(list);
 
 ReactDOM.render(list, root);
